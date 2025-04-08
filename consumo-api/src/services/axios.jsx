@@ -1,37 +1,45 @@
 import axios from "axios";
 
-// Cria a instância do axios com a base da API
 const api = axios.create({
-  baseURL: "https://api.artic.edu/api/v1",
+  baseURL: "https://collectionapi.metmuseum.org/public/collection/v1",
 });
 
-// Função para buscar obras com no máximo uma por artista
-export const buscarObrasComAutoresUnicos = async (pagina = 1, limite = 20, maximoObras = 4) => {
+// Função para buscar obras com artistas únicos
+export const buscarObrasComAutoresUnicos = async (maximoObras = 4) => {
   try {
-    const res = await api.get(`/artworks?page=${pagina}&limit=${limite}`);
-    const data = res.data;
+    // Passo 1: buscar todos os IDs
+    const res = await api.get("/objects");
+    const allIds = res.data.objectIDs;
 
-    const obrasFormatadas = data.data.map((artwork) => ({
-      title: artwork.title,
-      artist: artwork.artist_title || "Desconhecido",
-      date: artwork.date_display || "Data desconhecida",
-      image: artwork.image_id
-        ? `${data.config.iiif_url}/${artwork.image_id}/full/843,/0/default.jpg`
-        : null,
-    }));
+    // Embaralhar os IDs pra obter aleatórios
+    const idsAleatorios = allIds.sort(() => 0.5 - Math.random());
 
     const artistasUnicos = new Set();
-    const obrasFiltradas = obrasFormatadas.filter((obra) => {
-      if (!artistasUnicos.has(obra.artist)) {
-        artistasUnicos.add(obra.artist);
-        return true;
-      }
-      return false;
-    });
+    const obrasSelecionadas = [];
 
-    return obrasFiltradas.slice(0, maximoObras);
+    for (let id of idsAleatorios) {
+      if (obrasSelecionadas.length >= maximoObras) break;
+
+      const obraRes = await api.get(`/objects/${id}`);
+      const obra = obraRes.data;
+
+      const artista = obra.artistDisplayName || "Desconhecido";
+
+      if (!artistasUnicos.has(artista) && obra.primaryImageSmall) {
+        artistasUnicos.add(artista);
+
+        obrasSelecionadas.push({
+          title: obra.title,
+          artist: artista,
+          date: obra.objectDate || "Data desconhecida",
+          image: obra.primaryImageSmall,
+        });
+      }
+    }
+
+    return obrasSelecionadas;
   } catch (err) {
-    console.error("Erro ao buscar obras de arte:", err);
+    console.error("Erro ao buscar obras do MET:", err);
     return [];
   }
 };

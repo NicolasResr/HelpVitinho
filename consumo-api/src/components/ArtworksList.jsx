@@ -3,24 +3,24 @@ import { buscarObrasComAutoresUnicos } from "../services/axios";
 
 const ArtworksList = () => {
   const [artworks, setArtworks] = useState([]);
-  const [page, setPage] = useState(1);
+  const [troca, setTroca] = useState(false);
 
   useEffect(() => {
-    carregarObras(page);
-  }, [page]);
+    carregarObras();
+  }, [troca]);
 
-  const carregarObras = async (pagina) => {
-    const obras = await buscarObrasComAutoresUnicos(pagina);
+  const carregarObras = async () => {
+    const obras = await buscarObrasComAutoresUnicos();
     setArtworks(obras);
   };
 
   const trocarObras = () => {
-    setPage((prevPage) => prevPage + 1);
+    setTroca((prev) => !prev);
   };
 
   return (
     <div className="artworks-container">
-      <h1>Lista de Obras de Arte</h1>
+      <h1>Obras de Arte do MET</h1>
       <button onClick={trocarObras}>Trocar Obras</button>
       <div className="scroll-container">
         {artworks.map((artwork, index) => (
@@ -28,11 +28,7 @@ const ArtworksList = () => {
             <h2>{artwork.title}</h2>
             <p>Artista: {artwork.artist}</p>
             <p>Ano: {artwork.date}</p>
-            {artwork.image ? (
-              <img src={artwork.image} alt={artwork.title} />
-            ) : (
-              <p>Imagem não disponível</p>
-            )}
+            <img src={artwork.image} alt={artwork.title} />
           </div>
         ))}
       </div>

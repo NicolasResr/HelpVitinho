@@ -1,86 +1,92 @@
-# 🖼️ Artworks Gallery App
+# 🖼️✨ Artworks Gallery App — The MET Edition
 
-Este é um projeto em React que consome a API pública do Art Institute of Chicago para exibir obras de arte. A aplicação garante que seja exibida no máximo **uma obra por artista** por página.
+Bem-vindo ao **Artworks Gallery**, um app em React que consome a incrível API pública do [The Metropolitan Museum of Art (The MET)](https://collectionapi.metmuseum.org/public/collection/v1) 🎨🏛️.  
+Este projeto exibe **obras de arte únicas por artista**, garantindo variedade e beleza a cada clique!
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
-- [React](https://reactjs.org/)
-- [Axios](https://axios-http.com/)
-- [Vite](https://vitejs.dev/) (opcional, se usado)
-- [Tailwind CSS](https://tailwindcss.com/) (se estiver usando)
-- API: [Art Institute of Chicago API](https://api.artic.edu/docs/)
+- ⚛️ [React](https://reactjs.org/)
+- 🌐 [Axios](https://axios-http.com/)
+- ⚡ [Vite](https://vitejs.dev/) (opcional)
+- 🎨 [Tailwind CSS](https://tailwindcss.com/) (opcional)
+- 🖼️ [The MET Collection API](https://collectionapi.metmuseum.org/public/collection/v1)
 
 ---
 
-## 📦 Instalação
+## 📦 Como Rodar o Projeto
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   ```
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
-2. Acesse a pasta do projeto:
-   ```bash
-   cd nome-do-projeto
-   ```
+# 2. Acesse a pasta do projeto
+cd nome-do-projeto
 
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
+# 3. Instale as dependências
+npm install
 
-4. Inicie o projeto:
-   ```bash
-   npm run dev
-   ```
+# 4. Inicie o projeto
+npm run dev
+```
 
 ---
 
 ## 🧠 Funcionalidades
 
-- ✅ Consome dados da API pública do Art Institute of Chicago
-- ✅ Filtra os resultados para exibir **no máximo uma obra por artista**
-- ✅ Botão para trocar a lista de obras (paginação)
-- ✅ Componente modular `ArtworksList`
-- ✅ Organização das requisições no arquivo `services/axios.jsx`
+✅ Busca de IDs aleatórios de obras de arte  
+✅ Exibição de no máximo **1 obra por artista**  
+✅ Botão para atualizar a galeria com novas imagens  
+✅ Requisições separadas no arquivo `services/axios.jsx`  
+✅ Componente visual separado em `components/ArtworksList.jsx`  
 
 ---
 
-## 🗂️ Estrutura de Pastas
+## 🗂️ Estrutura do Projeto
 
 ```
 src/
-│
 ├── components/
-│   └── ArtworksList.jsx   # Componente principal da galeria
-│
+│   └── ArtworksList.jsx       # Componente da galeria
 ├── services/
-│   └── axios.jsx          # Configuração do Axios + função de busca
-│
-├── App.jsx                # Arquivo principal da aplicação
-├── App.css                # Estilos da aplicação
-└── main.jsx               # Ponto de entrada
+│   └── axios.jsx              # Função de busca com Axios
+├── App.jsx                    # App principal
+├── App.css                    # Estilização (opcional)
+└── main.jsx                   # Ponto de entrada
 ```
 
 ---
 
-## 📸 Prévia
+## 🔁 Como funciona a API?
 
-(opcional)  
-Adicione um print ou gif aqui se quiser:
+A API do MET possui dois endpoints principais:
 
-![preview](./preview.png)
-
----
-
-## 🧑‍💻 Autor
-
-Desenvolvido por [Seu Nome](https://github.com/seu-usuario) ✌️
+- `/objects` → retorna todos os IDs das obras 🆔  
+- `/objects/{id}` → retorna os dados detalhados de uma obra 🖼️
 
 ---
 
-## 📃 Licença
+## 📸 Demonstração
 
-Este projeto está sob a licença MIT.
+![Preview do App](./preview.png)
+
+📷 Exemplo de exibição de obras únicas por artista.
+
+---
+
+## ✍️ Autor
+
+Desenvolvido com 💙 por [Seu Nome](https://github.com/seu-usuario)
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **MIT License**.
+
+---
+
+## 📎 Link da API
+
+🔗 [https://collectionapi.metmuseum.org/public/collection/v1](https://collectionapi.metmuseum.org/public/collection/v1)
